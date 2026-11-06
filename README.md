@@ -2,10 +2,10 @@
 Firmware development for MIL-STD-1553B communication control and management using the COM1553B controller in Remote Terminal (RT) mode with an STM32 microcontroller.
 
 ## Hardware
--**Microcontrollers:** STM32F407VGT6
--**Development Board:** STM32F407G-DISC1
--**MIL-STD-1553B Controller:** COM1553B
--**Operating Mode:** Remote Terminal (RT)
+- **Microcontrollers:** STM32F407VGT6
+- **Development Board:** STM32F407G-DISC1
+- **MIL-STD-1553B Controller:** COM1553B
+- **Operating Mode:** Remote Terminal (RT)
 
 ## Firmware Architecture
 
