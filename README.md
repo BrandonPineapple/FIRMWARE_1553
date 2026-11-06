@@ -11,11 +11,11 @@ Firmware development for MIL-STD-1553B communication control and management usin
 
 The firmware will include:
 
--Hardware abstracting and peripheral initialization.
--COM1553B interface drivers.
--Interrupt-driven communication handling.
--Remote Terminal command and date processing
--Error detection and diagnostic mechanisms.
+- Hardware abstracting and peripheral initialization.
+- COM1553B interface drivers.
+- Interrupt-driven communication handling.
+- Remote Terminal command and date processing
+- Error detection and diagnostic mechanisms.
 
 
 ## Documentation
