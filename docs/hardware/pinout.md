@@ -19,8 +19,6 @@
 
 This document defines the signal configuration and pin assignments between the **STM32F407VGT6** microcontroller and the **COM1553B** MIL-STD-1553B controller.
 
-The COM1553B operates in **Remote Terminal (RT)** mode as part of the Mexican Payload Interface (MPI), while the spacecraft On-Board Computer (OBC) operates as the Bus Controller (BC).
-
 The STM32F407 acts as the host processor and manages the COM1553B through a 16-bit bidirectional parallel data bus, control signals, and status monitoring.
 
 This document covers:
