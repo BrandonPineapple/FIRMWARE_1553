@@ -21,22 +21,6 @@ This document defines the signal configuration and pin assignments between the *
 
 The STM32F407 acts as the host processor and manages the COM1553B through a 16-bit bidirectional parallel data bus, control signals, and status monitoring.
 
-This document covers:
-
-- COM1553B signal identification and classification.
-- STM32 GPIO assignments.
-- Parallel data bus configuration.
-- Control and handshake signals.
-- Status and diagnostic signals.
-- Clock generation.
-- Interrupt considerations.
-- Hardware validation requirements.
-
-> [!NOTE]
-> This document describes the current hardware configuration.
-> Pin assignments marked as `TBD` have not yet been defined.
-> Assignments will be updated as the STM32CubeMX configuration progresses.
-
 ### 1.1 Configuration Status
 
 | Status | Description |
