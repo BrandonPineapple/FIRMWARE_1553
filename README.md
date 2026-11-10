@@ -49,7 +49,7 @@ Technical documentation, hardware configurations, interface specifications, comm
 
 ---
 
-## 2. System Architecture
+## System Architecture
 
 The communication architecture consists of the spacecraft OBC, the MIL-STD-1553B physical bus, the external transceiver, the COM1553B controller, and the STM32F407 host processor.
 
