@@ -35,7 +35,7 @@ A configuration is considered verified only after the corresponding hardware tes
 ---
 
 
-## 3. COM1553B Signal Classification
+## 2. COM1553B Signal Classification
 
 This section groups the COM1553B interface signals by functionality.
 
