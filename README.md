@@ -44,7 +44,7 @@ Technical documentation, hardware configurations, interface specifications, comm
 
 ### Communication Protocol
 
-- [MIL-STD-1553B Protocol Documentation](docs/protocol/mil-std-1553b.md)
+- [MIL-STD-1553B Protocol Documentation](docs/protocol/mil-std-1553.pdf)
 
 
 ## Development Environment
