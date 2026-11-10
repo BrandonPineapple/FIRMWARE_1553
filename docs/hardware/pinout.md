@@ -57,33 +57,6 @@ flowchart TD
     class OBC,COM,STM main
     class BUS,TRX secondary
 ```
-
-### 2.1 Communication Roles
-
-**Spacecraft OBC — Bus Controller**
-
-- Initiates MIL-STD-1553B transactions.
-- Controls communication scheduling.
-- Transmits commands and receives Remote Terminal responses.
-
-**COM1553B — Remote Terminal**
-
-- Implements MIL-STD-1553B communication functions.
-- Processes command and data words.
-- Generates status and response information.
-- Provides the host processor with a parallel interface.
-
-**STM32F407 — Host Processor**
-
-- Initializes and controls the COM1553B.
-- Exchanges data through the parallel bus.
-- Handles controller events and handshake sequences.
-- Manages communication buffers.
-- Performs diagnostics and error handling.
-- Interfaces the controller with the remaining MPI firmware.
-
-The current hardware implementation focuses on **Bus A**.
-
 ---
 
 ## 3. COM1553B Signal Classification
