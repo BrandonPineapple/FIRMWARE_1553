@@ -43,7 +43,7 @@ The classification is based on the COM1553B datasheet and the existing firmware 
 
 Signal directions for host-interface signals are defined with respect to the STM32F407.
 
-### 3.1 Parallel Data Bus
+### 2.1 Parallel Data Bus
 
 The COM1553B provides a 16-bit bidirectional data bus.
 
@@ -75,7 +75,7 @@ GPIO direction shall be configured according to the COM1553B transfer cycle.
 >
 > The STM32F407 and COM1553B must never drive the same data lines simultaneously.
 
-### 3.2 Clock and Configuration
+### 2.2 Clock and Configuration
 
 | Signal | Direction | Function |
 |:-------|:----------|:---------|
@@ -91,7 +91,7 @@ GPIO direction shall be configured according to the COM1553B transfer cycle.
 - The selected operating mode is Remote Terminal.
 - Reset and startup timing must comply with the controller datasheet.
 
-### 3.3 Control Signals
+### 2.3 Control Signals
 
 | Signal | Direction | Function |
 |:-------|:----------|:---------|
@@ -103,7 +103,7 @@ These signals coordinate host control operations and data transfers.
 
 The firmware must manage their assertion and release according to the COM1553B timing requirements.
 
-### 3.4 Handshake Signals
+### 2.4 Handshake Signals
 
 | Signal | Direction | Function |
 |:-------|:----------|:---------|
@@ -114,7 +114,7 @@ These signals participate in the handshake between the controller and host proce
 
 The final firmware design will evaluate interrupt-driven detection to support time-critical operations.
 
-### 3.5 Status and Monitoring Signals
+### 2.5 Status and Monitoring Signals
 
 | Signal | Planned Direction | Function |
 |:-------|:------------------|:---------|
@@ -137,7 +137,7 @@ These signals support:
 
 The electrical direction and timing of each signal must be confirmed against the final COM1553B pin-function table before implementing the STM32 GPIO configuration.
 
-### 3.6 Manchester Interface
+### 2.6 Manchester Interface
 
 The COM1553B uses a dedicated Manchester interface to communicate with the external MIL-STD-1553B transceiver.
 
@@ -150,7 +150,7 @@ The COM1553B uses a dedicated Manchester interface to communicate with the exter
 
 These signals connect to the external transceiver rather than the STM32 host GPIO interface.
 
-### 3.7 Additional Hardware Signals
+### 2.7 Additional Hardware Signals
 
 The complete schematic must also account for:
 
@@ -170,7 +170,7 @@ This section defines the physical correspondence between COM1553B signals and ST
 
 The final assignments will be implemented in STM32CubeMX.
 
-### 4.1 Clock and Configuration
+### 3.1 Clock and Configuration
 
 | COM1553B Signal | STM32 Pin | Configuration | Status |
 |:----------------|:----------|:--------------|:-------|
@@ -184,7 +184,7 @@ The final assignments will be implemented in STM32CubeMX.
 
 PE9 is reserved for generating the 12 MHz COM1553B clock.
 
-### 4.2 Control and Handshake
+### 3.2 Control and Handshake
 
 | COM1553B Signal | STM32 Pin | GPIO Configuration | Status |
 |:----------------|:----------|:-------------------|:-------|
@@ -196,7 +196,7 @@ PE9 is reserved for generating the 12 MHz COM1553B clock.
 
 The interrupt configuration will be determined after reviewing the required timing and available EXTI lines.
 
-### 4.3 Parallel Data Bus
+### 3.3 Parallel Data Bus
 
 | COM1553B Signal | STM32 Pin | GPIO Configuration | Status |
 |:----------------|:----------|:-------------------|:-------|
@@ -229,7 +229,7 @@ This arrangement will simplify:
 - Bit masking and reconstruction.
 - Data bus driver implementation.
 
-### 4.4 Status and Monitoring
+### 3.4 Status and Monitoring
 
 | COM1553B Signal | STM32 Pin | Planned Configuration | Status |
 |:----------------|:----------|:----------------------|:-------|
