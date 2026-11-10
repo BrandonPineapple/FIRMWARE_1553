@@ -47,6 +47,7 @@ Technical documentation, hardware configurations, interface specifications, comm
 - [MIL-STD-1553 Protocol Documentation (PDF)](docs/protocol/mil-std-1553.pdf)
 
 
+---
 
 ## 2. System Architecture
 
@@ -98,8 +99,8 @@ flowchart TD
 
 The current hardware implementation focuses on **Bus A**.
 
-
-## Development Environment
+---
+## 3 Development Environment
 
 - **STM32CubeMX:** Peripheral and pin configuration.
 - **STM32CubeIDE:** Firmware development and debugging.
