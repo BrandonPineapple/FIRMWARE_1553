@@ -14,8 +14,6 @@
 
 Embedded firmware for MIL-STD-1553B communication control and management using the **COM1553B controller** operating in **Remote Terminal (RT)** mode with an STM32 microcontroller.
 
-The project is intended for integration into the **Mexican Payload Interface (MPI)**, enabling communication with the spacecraft On-Board Computer (OBC).
-
 ## Hardware
 
 | Component | Device |
@@ -35,19 +33,6 @@ The firmware will include:
 - Interrupt-driven communication handling.
 - Remote Terminal command and data processing.
 - Error detection and diagnostic mechanisms.
-
-## Development Status
-
-The project is currently in the **hardware configuration and firmware development phase**.
-
-Initial STM32 configuration includes:
-
-- STM32F407G-DISC1 board initialization.
-- System clock configuration at 168 MHz.
-- TIM1_CH1 configuration on PE9 for a nominal 12 MHz COM1553B reference clock.
-
-> [!NOTE]
-> The COM1553B clock output is configured in STM32CubeMX but has not yet been experimentally verified.
 
 ## Documentation
 
