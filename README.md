@@ -47,6 +47,58 @@ Technical documentation, hardware configurations, interface specifications, comm
 - [MIL-STD-1553 Protocol Documentation (PDF)](docs/protocol/mil-std-1553.pdf)
 
 
+
+## 2. System Architecture
+
+The communication architecture consists of the spacecraft OBC, the MIL-STD-1553B physical bus, the external transceiver, the COM1553B controller, and the STM32F407 host processor.
+
+```mermaid
+flowchart TD
+    OBC["Spacecraft OBC<br/>Bus Controller"]
+    BUS["MIL-STD-1553B Bus A"]
+    TRX["MIL-STD-1553B Transceiver"]
+    COM["COM1553B<br/>Remote Terminal"]
+    STM["STM32F407VGT6<br/>MPI Firmware"]
+
+    OBC <--> BUS
+    BUS <--> TRX
+    TRX <-->|Manchester Interface| COM
+    COM <-->|Parallel Data / Control / Status| STM
+
+    classDef main fill:#17365D,color:#FFFFFF,stroke:#17365D
+    classDef secondary fill:#EDF2F7,color:#25364A,stroke:#AAB8C8
+
+    class OBC,COM,STM main
+    class BUS,TRX secondary
+```
+---
+### 2.1 Communication Roles
+
+**Spacecraft OBC — Bus Controller**
+
+- Initiates MIL-STD-1553B transactions.
+- Controls communication scheduling.
+- Transmits commands and receives Remote Terminal responses.
+
+**COM1553B — Remote Terminal**
+
+- Implements MIL-STD-1553B communication functions.
+- Processes command and data words.
+- Generates status and response information.
+- Provides the host processor with a parallel interface.
+
+**STM32F407 — Host Processor**
+
+- Initializes and controls the COM1553B.
+- Exchanges data through the parallel bus.
+- Handles controller events and handshake sequences.
+- Manages communication buffers.
+- Performs diagnostics and error handling.
+- Interfaces the controller with the remaining MPI firmware.
+
+The current hardware implementation focuses on **Bus A**.
+
+
 ## Development Environment
 
 - **STM32CubeMX:** Peripheral and pin configuration.
