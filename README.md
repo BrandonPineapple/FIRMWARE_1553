@@ -36,9 +36,16 @@ The firmware will include:
 
 ## Documentation
 
-Technical documentation, hardware configurations, interface specifications, and test procedures will be maintained in the `docs/` directory.
+Technical documentation, hardware configurations, interface specifications, communication protocols, and test procedures are maintained in the `docs/` directory.
+
+### Hardware
 
 - [Pinout and Signal Configuration](docs/hardware/pinout.md)
+
+### Communication Protocol
+
+- [MIL-STD-1553B Protocol Documentation](docs/protocol/mil-std-1553b.md)
+
 
 ## Development Environment
 
