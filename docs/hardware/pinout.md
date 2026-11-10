@@ -34,30 +34,6 @@ A configuration is considered verified only after the corresponding hardware tes
 
 ---
 
-## 2. System Architecture
-
-The communication architecture consists of the spacecraft OBC, the MIL-STD-1553B physical bus, the external transceiver, the COM1553B controller, and the STM32F407 host processor.
-
-```mermaid
-flowchart TD
-    OBC["Spacecraft OBC<br/>Bus Controller"]
-    BUS["MIL-STD-1553B Bus A"]
-    TRX["MIL-STD-1553B Transceiver"]
-    COM["COM1553B<br/>Remote Terminal"]
-    STM["STM32F407VGT6<br/>MPI Firmware"]
-
-    OBC <--> BUS
-    BUS <--> TRX
-    TRX <-->|Manchester Interface| COM
-    COM <-->|Parallel Data / Control / Status| STM
-
-    classDef main fill:#17365D,color:#FFFFFF,stroke:#17365D
-    classDef secondary fill:#EDF2F7,color:#25364A,stroke:#AAB8C8
-
-    class OBC,COM,STM main
-    class BUS,TRX secondary
-```
----
 
 ## 3. COM1553B Signal Classification
 
