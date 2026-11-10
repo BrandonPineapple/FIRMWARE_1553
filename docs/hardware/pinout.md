@@ -164,7 +164,7 @@ Power distribution is handled separately from this document.
 
 ---
 
-## 4. STM32 Pin Assignment
+## 3. STM32 Pin Assignment
 
 This section defines the physical correspondence between COM1553B signals and STM32F407 GPIO pins.
 
