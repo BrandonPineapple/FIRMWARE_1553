@@ -246,178 +246,9 @@ All GPIO modes shown above are preliminary until the signal directions and timin
 
 ---
 
-## 5. Clock Configuration
+## 4. Signal Configuration Requirements
 
-The STM32F407 system clock is configured through STM32CubeMX.
-
-### 5.1 STM32 System Clock
-
-| Parameter | Configured Value |
-|:----------|:-----------------|
-| HSE | 8 MHz |
-| SYSCLK | 168 MHz |
-| HCLK | 168 MHz |
-| APB1 Peripheral Clock | 42 MHz |
-| APB2 Peripheral Clock | 84 MHz |
-| APB1 Timer Clock | 84 MHz |
-| APB2 Timer Clock | 168 MHz |
-
-The timer configuration uses the internal timer clock derived from the system clock tree.
-
-### 5.2 COM1553B Reference Clock
-
-TIM1 Channel 1 is configured to generate a nominal 12 MHz PWM signal on PE9.
-
-| Parameter | Configuration |
-|:----------|:--------------|
-| Timer | TIM1 |
-| Channel | CH1 |
-| GPIO | PE9 |
-| User Label | COM1553_CLK |
-| Clock Source | Internal Clock |
-| Timer Clock | 168 MHz |
-| Prescaler | 0 |
-| Counter Mode | Up |
-| Counter Period (ARR) | 13 |
-| PWM Mode | PWM Mode 1 |
-| Pulse (CCR1) | 7 |
-| Output Polarity | High |
-| GPIO Output Type | Alternate Function Push-Pull |
-| GPIO Pull | No Pull |
-| GPIO Speed | Very High |
-| Expected Frequency | 12 MHz |
-| Expected Duty Cycle | 50% |
-
-**Clock frequency calculation:**
-
-```text
-f_PWM = f_TIM / ((PSC + 1) × (ARR + 1))
-
-f_PWM = 168 MHz / ((0 + 1) × (13 + 1))
-
-f_PWM = 12 MHz
-```
-
-**Duty cycle calculation:**
-
-```text
-Duty Cycle = CCR1 / (ARR + 1)
-
-Duty Cycle = 7 / 14
-
-Duty Cycle = 50%
-```
-
-> [!WARNING]
-> The 12 MHz reference clock has been configured in STM32CubeMX but has not yet been experimentally verified.
->
-> Frequency, duty cycle, and signal integrity must be checked with an oscilloscope before hardware integration.
-
-### 5.3 Timer Initialization
-
-After generating the STM32CubeIDE project, TIM1 PWM generation must be started by the firmware.
-
-The expected HAL call is:
-
-```c
-HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-```
-
-The final startup sequence will be implemented in the application initialization procedure.
-
----
-
-## 6. Interrupt Configuration
-
-Interrupt-driven communication handling is planned for the COM1553B interface.
-
-The following signals are candidates for event-driven detection.
-
-| Signal | Proposed Mechanism | Purpose |
-|:-------|:-------------------|:--------|
-| CSTRA | GPIO EXTI | Command acknowledgment detection |
-| DTR | GPIO EXTI | Data transfer request detection |
-| MC | GPIO EXTI or polling | Message completion |
-| IM | GPIO EXTI or polling | Invalid message indication |
-| TXMODE | GPIO EXTI or polling | Transmission activity monitoring |
-
-The final configuration must consider:
-
-1. EXTI line availability.
-2. Interrupt priorities.
-3. Signal polarity and edge selection.
-4. Interrupt latency.
-5. COM1553B timing requirements.
-6. Potential loss of short events.
-7. Timeout detection and recovery.
-
-> [!NOTE]
-> The interrupt sources listed above are preliminary.
-> Not every status signal requires an interrupt.
-> Final selections will be based on the COM1553B interface timing requirements.
-
----
-
-## 7. GPIO Allocation Guidelines
-
-The final STM32 pin assignment will follow these rules.
-
-### 7.1 Debug Interface
-
-The SWD interface must remain available.
-
-| STM32 Pin | Function | Status |
-|:----------|:---------|:-------|
-| PA13 | SWDIO | Reserved |
-| PA14 | SWCLK | Reserved |
-
-These pins must not be reassigned to the COM1553B interface.
-
-### 7.2 Reserved Clock Output
-
-| STM32 Pin | Function | Status |
-|:----------|:---------|:-------|
-| PE9 | TIM1_CH1 / COM1553_CLK | Configured |
-
-PE9 must not be assigned to another peripheral while the COM1553B reference clock uses TIM1_CH1.
-
-### 7.3 Data Bus Organization
-
-The data bus should be organized to minimize the number of GPIO registers accessed during each transfer.
-
-The driver design will prioritize:
-
-- Efficient 16-bit transfers.
-- Predictable execution time.
-- Atomic GPIO output updates where possible.
-- Safe input/output transitions.
-- Readable and maintainable firmware.
-
-### 7.4 Interrupt Line Conflicts
-
-STM32 EXTI lines are shared among GPIO ports with the same pin number.
-
-For example, PA5 and PB5 cannot independently use EXTI5 at the same time.
-
-Signals requiring independent interrupts must be allocated accordingly.
-
-### 7.5 Peripheral Availability
-
-Pin assignments must account for:
-
-- Existing development board connections.
-- Timer alternate functions.
-- Debugging interfaces.
-- Available physical headers.
-- Future MPI peripheral requirements.
-
-The final pinout must be checked against the STM32F407G-DISC1 board schematic.
-
----
-
-## 8. Signal Configuration Requirements
-
-### 8.1 GPIO Outputs
+### 4.1 GPIO Outputs
 
 Control outputs must be initialized to defined inactive states before communication begins.
 
@@ -428,13 +259,13 @@ The initialization sequence must avoid unintended:
 - Transfer acknowledgments.
 - Bus conflicts.
 
-### 8.2 GPIO Inputs
+### 4.2 GPIO Inputs
 
 Input signals must use suitable pull configurations based on their electrical characteristics and the external interface circuitry.
 
 Input pull-up and pull-down requirements must be established from the hardware schematic and datasheet.
 
-### 8.3 Bidirectional Data Bus
+### 4.3 Bidirectional Data Bus
 
 The firmware must explicitly manage the parallel data bus direction.
 
@@ -448,7 +279,7 @@ A general transfer sequence will involve:
 
 The exact signal ordering and timing must follow the COM1553B datasheet.
 
-### 8.4 Logic-Level Compatibility
+### 4.4 Logic-Level Compatibility
 
 The STM32F407 and COM1553B operate in different logic-voltage domains.
 
@@ -458,54 +289,7 @@ The firmware pin configuration must reflect the actual interface circuit and sig
 
 ---
 
-## 9. Hardware Validation
-
-The following tests are planned for the hardware integration stage.
-
-| Test | Objective | Status |
-|:-----|:----------|:-------|
-| Clock Verification | Confirm 12 MHz reference clock | Pending |
-| Reset Verification | Validate controller reset sequence | Pending |
-| RT Mode Selection | Verify Remote Terminal configuration | Pending |
-| GPIO Output Test | Verify control output behavior | Pending |
-| GPIO Input Test | Verify status signal detection | Pending |
-| Data Bus Test | Verify 16-bit data transfer | Pending |
-| Handshake Test | Verify CSTR/CSTRA and DTR/DTACK behavior | Pending |
-| Bus Grant Test | Verify BGACK operation | Pending |
-| Interrupt Test | Verify event detection and response | Pending |
-| RT Communication Test | Verify MIL-STD-1553B Remote Terminal operation | Pending |
-
-### 9.1 Recommended Measurement Equipment
-
-- Digital oscilloscope.
-- Logic analyzer.
-- Digital multimeter.
-- STM32 ST-LINK debugging interface.
-
-Measured results and test observations will be documented separately.
-
----
-
-## 10. Development Status
-
-| Configuration Item | Status |
-|:-------------------|:-------|
-| STM32F407G-DISC1 board selection | Completed |
-| SWD debugging configuration | Configured |
-| System clock configuration | Configured |
-| TIM1 12 MHz output configuration | Pending Validation |
-| Data bus GPIO assignment | Pending |
-| Control GPIO assignment | Pending |
-| Handshake GPIO assignment | Pending |
-| Status GPIO assignment | Pending |
-| EXTI configuration | Pending |
-| COM1553B driver implementation | Pending |
-| RT firmware integration | Pending |
-| Hardware validation | Pending |
-
----
-
-## 11. References
+## 5. References
 
 The following documents are used as technical references:
 
@@ -516,7 +300,7 @@ The following documents are used as technical references:
 
 ---
 
-## 12. Revision History
+## 6. Revision History
 
 | Revision | Description |
 |:---------|:------------|
