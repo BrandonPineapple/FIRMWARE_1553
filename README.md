@@ -100,7 +100,7 @@ flowchart TD
 The current hardware implementation focuses on **Bus A**.
 
 ---
-## 3 Development Environment
+## Development Environment
 
 - **STM32CubeMX:** Peripheral and pin configuration.
 - **STM32CubeIDE:** Firmware development and debugging.
