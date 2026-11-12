@@ -13,8 +13,6 @@
 **Communication Controller:** COM1553B SMART  
 **Communication Standard:** MIL-STD-1553B  
 **Operating Mode:** Remote Terminal (RT)  
-**STM32CubeMX Project:** `1553_DISCO`  
-**Document Revision:** 0.2
 
 ---
 
